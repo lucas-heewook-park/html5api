@@ -44,7 +44,7 @@ div {
 			if (isImage) {
 				reader.readAsDataURL(file);
 			} else {
-				reader.readAsText(file, "EUC-KR");
+				reader.readAsText(file, "utf-8");
 			}
 
 			return false;

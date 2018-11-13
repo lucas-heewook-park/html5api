@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #myDiv {
+            border: 1px solid blue;
+            width: 500px;
+            height: 500px;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            document.getElementById("myFile").addEventListener("change", fileFunc);
+        }
+
+        function fileFunc(ev) {
+            console.log(ev.target.files.length);
+            myFileList = ev.target.files;
+            console.log(myFileList);
+            for (var i = 0; i < myFileList.length; i++) {
+                console.log("Name " + myFileList[i].name);
+                console.log("Type " + myFileList[i].type);
+                console.log("Size " + myFileList[i].size);
+                console.log("Date " + new Date(myFileList[i].lastModified));
+                var clone = myFileList[i].slice(0,
+                    Math.floor(myFileList[i].size / 2), "image/jpeg");
+                console.log(clone.size);
+            }
+            //File Ojbect 1개
+            var myDiv = document.getElementById("myDiv");
+            var fileObject = ev.target.files.item(0);
+            var fileReader = new FileReader();
+            var childDiv = document.createElement("div");
+            childDiv.setAttribute("style", "border:2px solid red;");
+            fileReader.onload = function(ev)
+            {
+                childDiv.innerText = ev.target.result;
+                myDiv.appendChild(childDiv);
+                console.log("append child");
+            }
+            fileReader.readAsText(fileObject, "euc-kr");
+
+            //child element 삭제
+            while (myDiv.hasChildNodes()) {
+                myDiv.removeChild(myDiv.firstChild);
+                console.log("remove child");
+            }
+        }
+    </script>
+</head>
+<body>
+<h1>File 정보 읽기</h1>
+<input type="file" id="myFile" multiple><br/>
+<div id="myDiv"></div>
+</body>
+</html>
