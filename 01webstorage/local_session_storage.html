@@ -57,12 +57,22 @@
                 document.getElementById("emailInput").value = "";
             }
         }
+
+        function save_session() {
+            if (!sessionStorage.getItem("name")) {
+                sessionStorage.setItem("name",
+                    document.getElementById("nameInput").value)
+            }
+        }
     </script>
 </head>
 <body>
 <h1>Web Storage</h1>
 Email 주소 입력: <input type="email" id="emailInput"><br/>
 <button onclick="save()">저장</button>
+<br/>
+Name 입력: <input type="text" id="nameInput">
+<button onclick="save_session()">세션에 저장</button>
 <hr>
 Email 주소 보기: <span id="emailSpan"></span>
 <button onclick="view()">보기</button>
